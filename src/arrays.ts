@@ -159,6 +159,5 @@ export function injectPositive(values: number[]): number[] {
     if (!foundNeg) {
         arr.push(array);
     }
-    console.log(arr);
     return arr;
 }
