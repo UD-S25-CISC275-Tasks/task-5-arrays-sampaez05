@@ -140,26 +140,23 @@ export function makeMath(addends: number[]): string {
 
 export function injectPositive(values: number[]): number[] {
     let arr: number[] = [];
-    let allPos: boolean = true;
     let foundNeg: boolean = false;
     const array: number = values.reduce(
         (accumulator: number, currentValue: number) => {
             if (currentValue >= 0) {
                 arr.push(currentValue);
-            } else if (currentValue < 0 && foundNeg === false) {
+            } else if (currentValue < 0 && !foundNeg) {
                 foundNeg = true;
-                allPos = false;
                 arr.push(currentValue);
                 arr.push(accumulator);
             } else if (currentValue < 0) {
-                allPos = false;
                 arr.push(currentValue);
             }
             return currentValue + accumulator;
         },
         0,
     );
-    if (allPos) {
+    if (!foundNeg) {
         arr.push(array);
     }
     console.log(arr);
