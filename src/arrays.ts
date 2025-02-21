@@ -149,7 +149,8 @@ export function injectPositive(values: number[]): number[] {
                 foundNeg = true;
                 arr.push(currentValue);
                 arr.push(accumulator);
-            } else if (currentValue < 0) {
+            } else {
+                foundNeg = true;
                 arr.push(currentValue);
             }
             return currentValue + accumulator;
