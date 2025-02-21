@@ -5,7 +5,18 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    let newnums: number[] = [];
+    if (numbers.length === 0) {
+        return newnums;
+    } else if (numbers.length === 1) {
+        newnums.push(numbers[0]);
+        newnums.push(numbers[0]);
+        return newnums;
+    } else {
+        newnums.push(numbers[0]);
+        newnums.push(numbers[numbers.length - 1]);
+        return newnums;
+    }
 }
 
 /**
@@ -13,7 +24,8 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    let tripled: number[] = numbers.map((number: number): number => number * 3);
+    return tripled;
 }
 
 /**
@@ -21,7 +33,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    let ints: number[] = numbers.map((number: string): number =>
+        Number.isNaN(parseInt(number)) ? 0 : parseInt(number),
+    );
+    return ints;
 }
 
 /**
@@ -32,7 +47,13 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    let newamounts: string[] = amounts.map((amount: string): string =>
+        amount.includes("$") ? amount.substring(1) : amount,
+    );
+    let ints: number[] = newamounts.map((amount: string): number =>
+        Number.isNaN(parseInt(amount)) ? 0 : parseInt(amount),
+    );
+    return ints;
 };
 
 /**
@@ -41,7 +62,13 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    let filterQs: string[] = messages.filter(
+        (message: string): boolean => !message.includes("?"),
+    );
+    let exclaim: string[] = filterQs.map((message: string): string =>
+        message.includes("!") ? message.toUpperCase() : message,
+    );
+    return exclaim;
 };
 
 /**
@@ -49,7 +76,10 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    let shortWords: string[] = words.filter(
+        (word: string): boolean => word.length < 4,
+    );
+    return shortWords.length;
 }
 
 /**
@@ -58,7 +88,17 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    if (colors.length === 0) {
+        return true;
+    }
+    let nonrgbs: string[] = colors.filter(
+        (color: string) =>
+            color != "red" && color != "blue" && color != "green",
+    );
+    if (nonrgbs.length > 0) {
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -69,7 +109,23 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    let str: string = "";
+    let sum: number = addends.reduce(
+        (total: number, num: number) => total + num,
+        0,
+    );
+    sum.toString;
+    str += sum;
+    str += "=";
+    str = addends.reduce(
+        (str: string, num: number) => str + num.toString() + "+",
+        str,
+    );
+    str = str.slice(0, -1);
+    return str;
 }
 
 /**
@@ -81,6 +137,31 @@ export function makeMath(addends: number[]): string {
  * For instance, the array [1, 9, -5, 7] would become [1, 9, -5, 10, 7]
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
+
 export function injectPositive(values: number[]): number[] {
-    return [];
+    let arr: number[] = [];
+    let allPos: boolean = true;
+    let foundNeg: boolean = false;
+    const array: number = values.reduce(
+        (accumulator: number, currentValue: number) => {
+            if (currentValue >= 0) {
+                arr.push(currentValue);
+            } else if (currentValue < 0 && foundNeg === false) {
+                foundNeg = true;
+                allPos = false;
+                arr.push(currentValue);
+                arr.push(accumulator);
+            } else if (currentValue < 0) {
+                allPos = false;
+                arr.push(currentValue);
+            }
+            return currentValue + accumulator;
+        },
+        0,
+    );
+    if (allPos) {
+        arr.push(array);
+    }
+    console.log(arr);
+    return arr;
 }
