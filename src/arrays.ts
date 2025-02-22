@@ -141,7 +141,7 @@ export function makeMath(addends: number[]): string {
 export function injectPositive(values: number[]): number[] {
     let arr: number[] = [];
     let foundNeg: boolean = false;
-    const array: number = values.reduce(
+    const sum: number = values.reduce(
         (accumulator: number, currentValue: number) => {
             if (currentValue >= 0) {
                 arr.push(currentValue);
@@ -157,8 +157,9 @@ export function injectPositive(values: number[]): number[] {
         },
         0,
     );
-    if (!foundNeg) {
-        arr.push(array);
-    }
+    foundNeg ? {} : arr.push(sum);
+    //if (!foundNeg) {
+    //    arr.push(sum);
+    // }
     return arr;
 }
